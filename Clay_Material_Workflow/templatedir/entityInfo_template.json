@@ -1,0 +1,30 @@
+{
+  "node_sets" : [
+    {
+      "id" : 0,
+      "axis" : 0,
+      "location" : 0
+    },
+    {
+      "id" : 1,
+      "axis" : 1,
+      "location" : 0
+    },
+    {
+      "id" : 2,
+      "axis" : 1,
+      "location" : 100
+    },
+    {
+      "id" : 3,
+      "box" : [70, 100, 0, {soil_thickness}]	  
+    }
+  ],
+    "cell_sets" : [
+    {
+	"id" : 0,
+	"box" : [0, 70, 0, {soil_thickness}]
+    }	
+  ]
+}
+

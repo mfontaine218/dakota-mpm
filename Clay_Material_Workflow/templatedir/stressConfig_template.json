@@ -1,0 +1,16 @@
+Title of Model: MPM Simulation
+***************************************************************************
+* Description:  For MPM.json file
+*
+* Input:  density
+* Output: response function value
+*************************************************************************** 
+{
+  "K0" : 0.5,
+  "density" : {density},
+  "slopeAngle" : {slope_angle},
+  "groundSurface" : {soil_thickness},
+  "gravity" : 9.81    
+}
+
+end

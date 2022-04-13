@@ -1,0 +1,145 @@
+Title of Model: MPM Simulation
+***************************************************************************
+* Description:  For MPM.json file
+*
+* Input:  friction, density, young's modulus, cohesion
+* Output: response function value
+*************************************************************************** 
+{
+  "title": "Dakota_MPM_CC_BaseFile",
+  "mesh": {
+    "mesh": "mesh.txt",
+    "entity_sets": "entity_sets.json",
+    "cell_type": "ED2Q4",
+    "isoparametric": false,
+    "io_type": "Ascii2D",
+    "node_type": "N2D",
+    "boundary_conditions": {
+        "velocity_constraints": [
+            {
+                "nset_id" : 0,
+                "dir": 1,
+                "velocity": 0.00
+            },
+            {
+                "nset_id" : 1,
+                "dir": 0,
+                "velocity": 0.00
+            },
+            {
+                "nset_id" : 1,
+                "dir": 1,
+                "velocity": 0.00
+            },
+            {
+                "nset_id" : 2,
+                "dir": 0,
+                "velocity": 0.00
+            },
+            {
+                "nset_id" : 2,
+                "dir": 1,
+                "velocity": 0.00
+            },
+            {
+                "nset_id" : 3,
+                "dir": 0,
+                "velocity": 0.00
+            },
+             {
+                "nset_id" : 3,
+                "dir": 1,
+                "velocity": 0.00
+            }
+	],
+       "friction_constraints": [
+            {
+                "nset_id" : 0,
+                "dir": 1,
+                "sign_n": -1,
+                "friction": friction_boundary
+            },
+             {
+                "nset_id" : 3,
+                "dir": 0,
+                "sign_n": -1,
+                "friction": friction_boundary
+            },
+             {
+                "nset_id" : 3,
+                "dir": 1,
+                "sign_n": -1,
+                "friction": friction_boundary
+            }
+            
+        ]  
+
+    },
+    "particles_stresses": "particles-stresses.txt"
+  },
+  "particles": [
+    {
+      "generator": {
+        "check_duplicates": false,
+        "location": "particles.txt",
+        "io_type": "Ascii2D",
+        "particle_type": "P2D",
+        "material_id": 0,
+        "type": "file",
+        "pset_id": 0
+      }
+    }
+  ],
+  "materials": [
+    {
+      "id": 1,
+      "type": "LinearElastic2D",
+      "density": 5000,
+      "youngs_modulus": 2E7,
+      "poisson_ratio": 0.0
+    },	
+    {
+      "id": 0,
+      "type": "MohrCoulomb2D",
+      "density": {density},
+      "youngs_modulus":100000000,
+      "poisson_ratio": 0.3,
+      "friction": {friction},
+      "dilation": 0,
+      "cohesion": {cohesion},
+      "residual_friction": {friction},
+      "residual_dilation": 0,
+      "residual_cohesion": {cohesion},
+      "peak_pdstrain": 0,
+      "residual_pdstrain": 0,
+      "tension_cutoff": 0.001,
+      "softening": false,
+      "tolerance": 1.0E-15
+    }
+  ],
+  "external_loading_conditions": {
+    "gravity": [x_gravity, y_gravity]
+  },   
+  "analysis": {
+    "type": "MPMExplicit2D",
+    "stress_update": "usf",
+    "dt": 0.00001,
+    "uuid": "Dakota_MPM_LondonClay",
+    "nsteps": 700000,
+    "locate_particles": true,      
+    "velocity_update": false,
+    "resume": {
+      "resume": false,
+      "uuid": "Dakota_MPM_LondonClay",
+      "step": 0
+    }
+  },
+  "post_processing": {
+    "path": "results/",
+    "vtk": ["stresses", "strains",  "velocities"],          
+    "output_steps": 1000
+  }
+  
+}
+
+end

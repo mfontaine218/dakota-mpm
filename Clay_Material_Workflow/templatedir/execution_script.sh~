@@ -1,0 +1,25 @@
+#!/bin/sh
+# Execution Script to setup and run MPM for Dakota
+
+#-----------------------
+# Stress Initialization
+#-----------------------
+## Send Stress Outout to MPM Folder
+# ./initParticleStress.py --particlesFile particles0.h5 --stressConfig stressConfig.in  particles_stresses.txt
+
+./initParticleStress.py --particlesFile particles0.h5 --stressConfig stressConfig.in >> particles-stresses.txt  
+  /home/maddy/mpm/bin/dakota_test
+
+#----------------
+# MPM Simulation 
+#----------------
+
+ # Script to change mpm.in to mpm.json and clean up lines send output to MPM folder
+ # Having issues using ./mpm2json.py
+python3 mpm2json.py --mpm_in  mpm.in >> /home/maddy/mpm/bin/dakota_test/mpm.json
+ 
+# Change to MPM directory
+#!/home/maddy/mpm/build
+
+# Run MPM
+./mpm -f ../bin/dakota_test/ -i mpm.json

@@ -1,0 +1,30 @@
+## Notes
+
+To Run dakota
+
+1. Make sure bashrc is set up to run dakota from any folder
+2. Command Line example: maddy@maddy-Lenovo-YOGA-700-11ISK:~/Desktop/dakota_tests/MPM_Execution_Test_ResponseQuantity$ dakota -i dakota_mpm.in -o mpm.out > mpm.std
+
+
+Move Files to Pronghorn 
+File:
+scp dakota_mpm.in  mfontaine@pronghorn.rc.unr.edu:/data/gpfs/assoc/wf_debris_flow/Dakota_MPM/Simulation1_Silica_Sand
+
+Subdirectory:
+scp -pr templatedir/  mfontaine@pronghorn.rc.unr.edu:/data/gpfs/assoc/wf_debris_flow/Dakota_MPM/Simulation1_Silica_Sand
+
+Location of Simulations on Pronghorn
+pwd --> 
+/data/gpfs/assoc/wf_debris_flow/Dakota_MPM/Simulation1_Silica_Sand
+
+
+
+Note ~/
+results in -->
+/data/gpfs/home/mfontaine
+
+
+Run Dakota with Singulrity 
+singularity exec /apps/dakota/dakota6.15binary-centos7.9.sif dakota -i dakota_mpm.in -o mpm.out > mpm.std
+
+Not sure how to set folder for sponsored queue 

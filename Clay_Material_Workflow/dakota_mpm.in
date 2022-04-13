@@ -1,0 +1,39 @@
+#  DAKOTA INPUT FILE - dakota_mpm.in
+environment 
+	tabular_data
+	tabular_data_file = 'mpm.dat'
+
+method
+	sampling
+		sample_type = lhs
+		samples = 25
+
+variables
+	normal_uncertain = 3
+		means = 23 2040 3000
+		std_deviation = 8 143 300
+		lower_bounds = 0 0 0 
+		descriptors = 'friction' 'density' 'cohesion' 
+	discrete_interval_uncertain = 2
+		num_intervals = 1 1
+		lower_bounds = 1 23
+		upper_bounds = 20 45
+		descriptors ='soil_thickness' 'slope_angle'
+
+interface	
+	fork
+	  analysis_driver = 'simulator_script.sh'
+	  parameters_file = 'params.in'
+	  results_file    = 'results.out'
+      file_save
+	  work_directory named 'workdir'
+      directory_tag directory_save
+      link_files = 'templatedir/*'
+ 	  
+	   
+responses
+	response_functions = 3
+	response_descriptors = "vol_fraction", "Avg_vel_x","Avg_vel_y"
+	no_gradients
+	no_hessians
+
